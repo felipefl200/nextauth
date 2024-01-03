@@ -11,6 +11,7 @@ interface CardWrapperProps {
     backButtonLabel: string
     backButtonHref: string
     showSocial: boolean
+    isLoading: boolean
 }
 export function CardWrapper({
     children,
@@ -18,6 +19,7 @@ export function CardWrapper({
     backButtonHref,
     backButtonLabel,
     showSocial,
+    isLoading,
 }: CardWrapperProps) {
     return (
         <Card className="w-[400px] shadow-md">
@@ -27,7 +29,7 @@ export function CardWrapper({
             <CardContent>{children}</CardContent>
             {showSocial && (
                 <CardFooter>
-                    <Social />
+                    <Social isLoading={isLoading} />
                 </CardFooter>
             )}
             <CardFooter>

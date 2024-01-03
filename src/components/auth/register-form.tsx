@@ -18,6 +18,7 @@ import { Button } from '@/components/ui/button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { register } from '@/actions/register'
+import { Icons } from '@/lib/icons'
 
 export function RegisterForm() {
     const [error, setError] = useState<string | undefined>('')
@@ -49,6 +50,7 @@ export function RegisterForm() {
             headerLabel="Criar uma nova conta"
             backButtonLabel="Já possui conta ?"
             backButtonHref="/login"
+            isLoading={isPending}
             showSocial
         >
             <Form {...form}>
@@ -117,7 +119,10 @@ export function RegisterForm() {
                         type="submit"
                         className="w-full"
                     >
-                        Registrar
+                        Registrar{' '}
+                        {isPending && (
+                            <Icons.spinner className="ml-2 h-6 w-6 animate-spin" />
+                        )}
                     </Button>
                 </form>
             </Form>

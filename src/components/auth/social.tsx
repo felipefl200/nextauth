@@ -3,11 +3,16 @@
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/lib/icons'
 
-export function Social() {
+interface SocialProps {
+    isLoading: boolean
+}
+
+export function Social({ isLoading }: SocialProps) {
     return (
         <div className="flex w-full items-center gap-x-2">
             <Button
                 onClick={() => {}}
+                disabled={isLoading}
                 size="lg"
                 className="w-full"
                 variant="outline"
@@ -17,6 +22,7 @@ export function Social() {
 
             <Button
                 onClick={() => {}}
+                disabled={isLoading}
                 size="lg"
                 className="w-full"
                 variant="outline"
