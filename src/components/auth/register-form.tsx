@@ -3,7 +3,7 @@ import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardWrapper } from '@/components/auth/card-wrapper'
-import { LoginSchema } from '@/schemas'
+import { RegisterSchema } from '@/schemas'
 import { z } from 'zod'
 import {
     Form,
@@ -17,26 +17,27 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
-import { login } from '@/actions/login'
+import { register } from '@/actions/register'
 
-export function LoginForm() {
+export function RegisterForm() {
     const [error, setError] = useState<string | undefined>('')
     const [success, setSuccess] = useState<string | undefined>('')
     const [isPending, startTransition] = useTransition()
 
-    const form = useForm<z.infer<typeof LoginSchema>>({
-        resolver: zodResolver(LoginSchema),
+    const form = useForm<z.infer<typeof RegisterSchema>>({
+        resolver: zodResolver(RegisterSchema),
         defaultValues: {
+            name: '',
             email: '',
             password: '',
         },
     })
 
-    const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
         setError('')
         setSuccess('')
         startTransition(() => {
-            login(values).then((data) => {
+            register(values).then((data) => {
                 setError(data.error)
                 setSuccess(data.success)
             })
@@ -45,9 +46,9 @@ export function LoginForm() {
 
     return (
         <CardWrapper
-            headerLabel="Seja Bem-vindo!"
-            backButtonLabel="Não possui conta ?"
-            backButtonHref="/register"
+            headerLabel="Criar uma nova conta"
+            backButtonLabel="Já possui conta ?"
+            backButtonHref="/login"
             showSocial
         >
             <Form {...form}>
@@ -58,10 +59,27 @@ export function LoginForm() {
                     <div className="space-y-4">
                         <FormField
                             control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Nome</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Informa seu nome"
+                                            type="text"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
                             name="email"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Username</FormLabel>
+                                    <FormLabel>Email</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="email@email.net"
@@ -69,7 +87,6 @@ export function LoginForm() {
                                             {...field}
                                         />
                                     </FormControl>
-
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -100,7 +117,7 @@ export function LoginForm() {
                         type="submit"
                         className="w-full"
                     >
-                        Login
+                        Registrar
                     </Button>
                 </form>
             </Form>
