@@ -18,7 +18,7 @@ import { Button } from '@/components/ui/button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { register } from '@/actions/register'
-import { Icons } from '@/lib/icons'
+import { Icons } from '@/components/icons'
 
 export function RegisterForm() {
     const [error, setError] = useState<string | undefined>('')
