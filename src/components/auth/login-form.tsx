@@ -1,6 +1,7 @@
 'use client'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSearchParams } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CardWrapper } from '@/components/auth/card-wrapper'
 import { LoginSchema } from '@/schemas'
@@ -20,6 +21,12 @@ import { FormSuccess } from '@/components/form-success'
 import { login } from '@/actions/login'
 
 export function LoginForm() {
+    const searchParams = useSearchParams()
+    const urlError =
+        searchParams.get('error') === 'OAuthAccountNotLinked'
+            ? 'Outra conta esta usando o email'
+            : undefined
+
     const [error, setError] = useState<string | undefined>('')
     const [success, setSuccess] = useState<string | undefined>('')
     const [isPending, startTransition] = useTransition()
@@ -37,8 +44,9 @@ export function LoginForm() {
         setSuccess('')
         startTransition(() => {
             login(values).then((data) => {
-                if (data?.error) setError(data.error)
-                if (data?.success) setSuccess(data.success)
+                setError(data?.error)
+                // setSuccess(data?.success)
+                //TODO: 2FA functions
             })
         })
     }
@@ -94,7 +102,7 @@ export function LoginForm() {
                             )}
                         />
                     </div>
-                    <FormError message={error} />
+                    <FormError message={error || urlError} />
                     <FormSuccess message={success} />
                     <Button
                         disabled={isPending}
