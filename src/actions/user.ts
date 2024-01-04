@@ -1,4 +1,5 @@
 import { db } from '@/lib/db'
+import { exclude } from '@/utils/userWithoutPassword'
 
 export const getUserByEmail = async (email: string) => {
     try {
@@ -16,7 +17,8 @@ export const getUserById = async (id: string) => {
         const user = await db.user.findUnique({
             where: { id },
         })
-        return user
+        const userWithoutPassword = exclude(user, 'password')
+        return userWithoutPassword
     } catch (error) {
         return null
     }

@@ -1,8 +1,10 @@
-import * as argon2 from 'argon2'
+import { hashSync, compareSync } from 'bcryptjs'
+
+const numSaltRounds = 12
 
 export async function hashPassword(password: string): Promise<string> {
     try {
-        const hash = await argon2.hash(password)
+        const hash = hashSync(password)
         return hash
     } catch (error) {
         console.log(error)
@@ -15,8 +17,8 @@ export async function verifyPassword(
     hash: string
 ): Promise<boolean> {
     try {
-        const verified = await argon2.verify(hash, password)
-        return verified
+        const verifyPassword = compareSync(password, hash)
+        return verifyPassword
     } catch (error) {
         console.log(error)
         throw error

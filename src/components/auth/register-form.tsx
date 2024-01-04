@@ -35,6 +35,7 @@ export function RegisterForm() {
     })
 
     const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+        event?.preventDefault()
         setError('')
         setSuccess('')
         startTransition(() => {

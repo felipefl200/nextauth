@@ -37,8 +37,8 @@ export function LoginForm() {
         setSuccess('')
         startTransition(() => {
             login(values).then((data) => {
-                setError(data.error)
-                setSuccess(data.success)
+                if (data?.error) setError(data.error)
+                if (data?.success) setSuccess(data.success)
             })
         })
     }
@@ -49,6 +49,7 @@ export function LoginForm() {
             backButtonLabel="Não possui conta ?"
             backButtonHref="/register"
             showSocial
+            isLoading={isPending}
         >
             <Form {...form}>
                 <form

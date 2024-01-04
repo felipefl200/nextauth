@@ -1,6 +1,17 @@
-import { auth } from '@/providers/auth'
+import { auth, signOut } from '@/providers/auth'
+
 
 export default async function SettingPage() {
     const session = await auth()
-    return <h1>Página protegida!</h1>
+    return (
+        <div>
+            <div>
+                <h1>Página protegida!</h1>
+                <pre>{JSON.stringify(session, null, 2)}</pre>
+            </div>
+            <div>
+               
+            </div>
+        </div>
+    )
 }
