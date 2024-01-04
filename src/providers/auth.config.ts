@@ -11,10 +11,12 @@ import { exclude } from '@/utils/userWithoutPassword'
 export default {
     providers: [
         GitHub({
+            name: 'github',
             clientId: process.env.GITHUB_ID,
             clientSecret: process.env.GITHUB_SECRET,
         }),
         Google({
+            name: 'google',
             clientId: process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_SECRET,
         }),
