@@ -12,7 +12,7 @@ export default function Home() {
             <div className="space-y-6">
                 <h1
                     className={cn(
-                        'flex items-center justify-center text-4xl font-semibold text-white drop-shadow-md',
+                        'flex items-center justify-center text-4xl font-semibold text-muted-foreground dark:text-white drop-shadow-md',
                         poppins.className
                     )}
                 >

@@ -6,6 +6,7 @@ import { hashPassword } from '@/lib/handle-crypt'
 import { RegisterSchema } from '@/schemas'
 import { z } from 'zod'
 import { generateVerificationToken } from '@/lib/tokens'
+import { sendVerificationEmail } from '@/lib/mail'
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
     const validatedFileds = RegisterSchema.safeParse(values)
@@ -33,9 +34,11 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     })
 
     const verificationToken = await generateVerificationToken(email)
-    console.log(verificationToken)
 
-    //TODO: Send verification email
+    await sendVerificationEmail(
+        verificationToken.email,
+        verificationToken.token
+    )
 
     return { success: 'O email de confirmação foi enviado!' }
 }

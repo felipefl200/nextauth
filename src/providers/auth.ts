@@ -24,9 +24,12 @@ export const {
         },
     },
     callbacks: {
-        async signIn({ user }) {
+        async signIn({ user, account }) {
             const existingUser = await getUserById(user.id)
-            // if (!existingUser || !existingUser.emailVerified) return false
+            if (!existingUser || !existingUser.emailVerified) return false
+            if (account?.provider !== 'credentials') return true
+
+            //TODO: add 2FA check
 
             return true
         },

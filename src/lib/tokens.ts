@@ -9,15 +9,16 @@ export const generateVerificationToken = async (email: string) => {
     const existingToken = await getVerificationTokenByEmail(email)
 
     if (existingToken) {
-        const tokenDB = await db.verificationToken.update({
+        await db.verificationToken.delete({
             where: { id: existingToken.id },
-            data: {
-                token,
-                email: existingToken.email,
-                expires,
-            },
         })
-        console.log('Token update:', tokenDB)
-        return tokenDB
     }
+    const verificationToken = await db.verificationToken.create({
+        data: {
+            email,
+            token,
+            expires,
+        },
+    })
+    return verificationToken
 }

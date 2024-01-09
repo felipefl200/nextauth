@@ -45,7 +45,7 @@ export function LoginForm() {
         startTransition(() => {
             login(values).then((data) => {
                 setError(data?.error)
-                // setSuccess(data?.success)
+                setSuccess(data?.success)
                 //TODO: 2FA functions
             })
         })
@@ -56,7 +56,7 @@ export function LoginForm() {
             headerLabel="Seja Bem-vindo!"
             backButtonLabel="Não possui conta ?"
             backButtonHref="/register"
-            showSocial
+            // showSocial
             isLoading={isPending}
         >
             <Form {...form}>
