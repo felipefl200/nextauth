@@ -6,7 +6,7 @@ import { signIn } from 'next-auth/react'
 import { DEFAULT_LOGIN_REDIRECT } from '@/utils/routes-settings'
 
 interface SocialProps {
-    isLoading: boolean
+    isLoading?: boolean
 }
 
 export function Social({ isLoading }: SocialProps) {

@@ -10,8 +10,8 @@ interface CardWrapperProps {
     headerLabel: string
     backButtonLabel: string
     backButtonHref: string
-    showSocial: boolean
-    isLoading: boolean
+    showSocial?: boolean
+    isLoading?: boolean
 }
 export function CardWrapper({
     children,

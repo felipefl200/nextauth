@@ -8,6 +8,7 @@ import { z } from 'zod'
 import { getUserByEmail } from './user'
 import { generateVerificationToken } from '@/lib/tokens'
 import { sendVerificationEmail } from '@/lib/mail'
+import { verifyPassword } from '@/lib/handle-crypt'
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
     const validatedFileds = LoginSchema.safeParse(values)
@@ -21,12 +22,15 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     const existingUser = await getUserByEmail(email)
 
     if (!existingUser || !existingUser.email || !existingUser.password) {
-        return { error: 'Usuário não encontrado!' }
+        return { error: 'Credenciais inválidas' }
     }
+
+    const passOK = await verifyPassword(password, existingUser.password)
+    if (!passOK) return { error: 'Senha incorreta' }
 
     if (!existingUser.emailVerified) {
         const verificationToken = await generateVerificationToken(email)
-        
+
         generateVerificationToken(existingUser.email)
 
         await sendVerificationEmail(

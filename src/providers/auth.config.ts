@@ -34,7 +34,7 @@ export default {
                     const passwordMatch = await verifyPassword(
                         password,
                         user.password
-                    )
+                    )                    
 
                     if (!passwordMatch) return null
 
