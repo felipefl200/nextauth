@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { login } from '@/actions/login'
+import Link from 'next/link'
 
 export function LoginForm() {
     const searchParams = useSearchParams()
@@ -97,6 +98,16 @@ export function LoginForm() {
                                             type="password"
                                         />
                                     </FormControl>
+                                    <Button
+                                        className="font-normal px-1"
+                                        size="sm"
+                                        variant="link"
+                                        asChild
+                                    >
+                                        <Link href="/reset-password">
+                                            Esqueceu a sua senha ?
+                                        </Link>
+                                    </Button>
                                     <FormMessage />
                                 </FormItem>
                             )}
