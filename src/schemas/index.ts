@@ -24,3 +24,17 @@ export const RegisterSchema = z.object({
 export const ResetPasswordSchema = z.object({
     email: z.string().email({ message: 'Verifique o email inserido' }),
 })
+
+export const ChangePasswordSchema = z
+    .object({
+        password: z.string().min(6, {
+            message: 'O campo senha deve ter no mínimo 6 caracteres',
+        }),
+        passwordConfirmation: z.string().min(6, {
+            message: 'O campo senha deve ter no mínimo 6 caracteres',
+        }),
+    })
+    .refine((data) => data.password === data.passwordConfirmation, {
+        message: 'As senhas não conferem',
+        path: ['passwordConfirmation'],
+    })
