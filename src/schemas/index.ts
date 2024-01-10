@@ -7,6 +7,7 @@ export const LoginSchema = z.object({
     password: z
         .string({ required_error: 'O campo senha deve ser preechido' })
         .min(1, { message: 'O campo senha deve ser preechido' }),
+    code: z.string().optional(),
 })
 
 export const RegisterSchema = z.object({

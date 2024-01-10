@@ -1,5 +1,5 @@
-import { auth, signOut } from '@/providers/auth'
-
+import { LogoutButton } from '@/components/auth/logout-button'
+import { auth } from '@/providers/auth'
 
 export default async function SettingPage() {
     const session = await auth()
@@ -10,7 +10,7 @@ export default async function SettingPage() {
                 <pre>{JSON.stringify(session, null, 2)}</pre>
             </div>
             <div>
-               
+                <LogoutButton>Sair</LogoutButton>
             </div>
         </div>
     )

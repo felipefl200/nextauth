@@ -6,8 +6,8 @@ import { DEFAULT_LOGIN_REDIRECT } from '@/utils/routes-settings'
 import { AuthError } from 'next-auth'
 import { z } from 'zod'
 import { getUserByEmail } from './user'
-import { generateVerificationToken } from '@/lib/tokens'
-import { sendVerificationEmail } from '@/lib/mail'
+import { generateTwoFactorToken, generateVerificationToken } from '@/lib/tokens'
+import { sendTwoFactorTokenEmail, sendVerificationEmail } from '@/lib/mail'
 import { verifyPassword } from '@/lib/handle-crypt'
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
@@ -38,6 +38,13 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
             verificationToken.token
         )
         return { success: 'Email do confirmação enviado!' }
+    }
+
+    if (existingUser.isTwoFactor && existingUser.email) {
+        const twoFactorToken = await generateTwoFactorToken(existingUser.email)
+        await sendTwoFactorTokenEmail(existingUser.email, twoFactorToken.token)
+
+        return { twoFactor: true }
     }
 
     try {
