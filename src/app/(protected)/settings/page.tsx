@@ -1,17 +1,16 @@
-import { LogoutButton } from '@/components/auth/logout-button'
-import { auth } from '@/providers/auth'
+'use client'
 
-export default async function SettingPage() {
-    const session = await auth()
+import { useCurrentUser } from '@/hooks/use-current-user'
+
+export default function SettingPage() {
+    const user = useCurrentUser()
     return (
         <div>
             <div>
                 <h1>Página protegida!</h1>
-                <pre>{JSON.stringify(session, null, 2)}</pre>
+                <pre>{JSON.stringify(user, null, 2)}</pre>
             </div>
-            <div>
-                <LogoutButton>Sair</LogoutButton>
-            </div>
+            <div></div>
         </div>
     )
 }

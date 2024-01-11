@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import '@/styles/globals.css'
 import { ThemeProvider } from '@/providers/theme-provider'
 import { ToogleTheme } from '@/components/toggle-theme'
+import { SessionProvider } from 'next-auth/react'
+import { auth } from '@/providers/auth'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,24 +13,18 @@ export const metadata: Metadata = {
     description: 'Created by Felipe França',
 }
 
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+    const session = await auth()
     return (
         <html lang="pt-br" suppressHydrationWarning>
-            <body className={inter.className}>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    <ToogleTheme className="absolute right-6 top-6" />
-                    {children}
-                </ThemeProvider>
-            </body>
+            <SessionProvider session={session}>
+                <body className={inter.className}>
+                    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                        <ToogleTheme className="absolute bottom-6 right-6 md:top-6" />
+                        {children}
+                    </ThemeProvider>
+                </body>
+            </SessionProvider>
         </html>
     )
 }
