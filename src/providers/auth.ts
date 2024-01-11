@@ -31,15 +31,11 @@ export const {
             if (account?.provider !== 'credentials') return true
 
             if (existingUser.isTwoFactor) {
-                const twoFactorConfirmation =
-                    await getTwoFactorConfirmationByUserId(existingUser.id)
-                console.log({ twoFactorConfirmation })
+                const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id)
 
                 if (!twoFactorConfirmation) return false
 
-                await db.twoFactorConfirmation.delete({
-                    where: { id: twoFactorConfirmation.id },
-                })
+                await db.twoFactorConfirmation.delete({ where: { id: twoFactorConfirmation.id } })
             }
 
             return true
