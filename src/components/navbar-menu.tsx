@@ -16,7 +16,7 @@ export function NavbarMenu() {
         <NavigationMenu>
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <Link href="/" legacyBehavior passHref>
+                    <Link href="/client" legacyBehavior passHref>
                         <NavigationMenuLink
                             className={cn(navigationMenuTriggerStyle(), 'bg-slate-50 dark:bg-slate-900/50')}
                         >
@@ -25,11 +25,11 @@ export function NavbarMenu() {
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <Link href="/" legacyBehavior passHref>
+                    <Link href="/server" legacyBehavior passHref>
                         <NavigationMenuLink
                             className={cn(navigationMenuTriggerStyle(), 'bg-slate-50 dark:bg-slate-900/50')}
                         >
-                            Admin
+                            Server
                         </NavigationMenuLink>
                     </Link>
                 </NavigationMenuItem>
