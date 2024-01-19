@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/providers/theme-provider'
 import { ToogleTheme } from '@/components/toggle-theme'
 import { SessionProvider } from 'next-auth/react'
 import { auth } from '@/providers/auth'
+import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,6 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <body className={inter.className}>
                     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
                         <ToogleTheme className="absolute bottom-6 right-6 md:top-6" />
+                        <Toaster />
                         {children}
                     </ThemeProvider>
                 </body>

@@ -34,6 +34,15 @@ export function NavbarMenu() {
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
+                    <Link href="/admin" legacyBehavior passHref>
+                        <NavigationMenuLink
+                            className={cn(navigationMenuTriggerStyle(), 'bg-slate-50 dark:bg-slate-900/50')}
+                        >
+                            Admin
+                        </NavigationMenuLink>
+                    </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
                     <Link href="/" legacyBehavior passHref>
                         <NavigationMenuLink
                             className={cn(navigationMenuTriggerStyle(), 'bg-slate-50 dark:bg-slate-900/50')}
