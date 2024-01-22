@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import {
-    NavigationMenu,    
+    NavigationMenu,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
@@ -43,7 +43,7 @@ export function NavbarMenu() {
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <Link href="/" legacyBehavior passHref>
+                    <Link href="/settings" legacyBehavior passHref>
                         <NavigationMenuLink
                             className={cn(navigationMenuTriggerStyle(), 'bg-slate-50 dark:bg-slate-900/50')}
                         >

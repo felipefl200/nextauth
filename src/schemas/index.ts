@@ -1,5 +1,9 @@
 import { z } from 'zod'
 
+export const SettingsSchema = z.object({
+    name: z.optional(z.string())
+})
+
 export const LoginSchema = z.object({
     email: z
         .string({ required_error: 'O campo email deve ser preenchido' })
