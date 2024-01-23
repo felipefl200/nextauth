@@ -1,8 +1,18 @@
+import { UserRole } from '@prisma/client'
 import { z } from 'zod'
 
 export const SettingsSchema = z.object({
-    name: z.optional(z.string())
+    name: z.optional(z.string()),
+    isTwoFactor: z.optional(z.boolean()),
+    role: z.enum([UserRole.ADMIN, UserRole.USER]),
+    email: z.optional(z.string().email()),
+    password: z.optional(z.string().min(6, { message: "A nova senha deve ter no mínimo 6 caracteres" })),
+    passwordConfirmation: z.optional(z.string().min(6))
 })
+    .refine((data) => data.password === data.passwordConfirmation, {
+        message: 'As senhas não conferem',
+        path: ['passwordConfirmation'],
+    })
 
 export const LoginSchema = z.object({
     email: z

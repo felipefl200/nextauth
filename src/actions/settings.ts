@@ -22,5 +22,5 @@ export const settings = async (
             ...values
         }
     })
-    return { success: 'Settings Updated' }
+    return { success: 'Configurações atualizadas' }
 }
