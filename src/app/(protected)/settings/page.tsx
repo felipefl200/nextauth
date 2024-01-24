@@ -17,6 +17,7 @@ import { FormError } from '@/components/form-error'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { UserRole } from '@prisma/client'
 import { Switch } from '@/components/ui/switch'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export default function SettingPage() {
     const user = useCurrentUser()
@@ -26,6 +27,7 @@ export default function SettingPage() {
     const [isPending, startTransition] = useTransition()
 
     const form = useForm<z.infer<typeof SettingsSchema>>({
+        resolver: zodResolver(SettingsSchema),
         defaultValues: {
             name: user?.name || undefined,
             email: user?.email || undefined,
@@ -50,7 +52,7 @@ export default function SettingPage() {
         })
     }
     return (
-        <Card className="w-600px">
+        <Card className="md:w-[600px]">
             <CardHeader>
                 <p className="flex items-center justify-center gap-2 text-center text-2xl font-semibold">
                     <Icons.settingsIcon /> Configurações
@@ -58,8 +60,8 @@ export default function SettingPage() {
             </CardHeader>
             <CardContent>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                        <div>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col space-y-6">
+                        <div className="space-y-3">
                             <FormField
                                 control={form.control}
                                 name="name"
@@ -120,6 +122,7 @@ export default function SettingPage() {
                                             <Input
                                                 {...field}
                                                 disabled={isPending || user?.isOAuth}
+                                                type="password"
                                                 placeholder="******"
                                             />
                                         </FormControl>
@@ -136,6 +139,7 @@ export default function SettingPage() {
                                             <Input
                                                 {...field}
                                                 disabled={isPending || user?.isOAuth}
+                                                type="password"
                                                 placeholder="******"
                                             />
                                         </FormControl>
@@ -146,7 +150,7 @@ export default function SettingPage() {
                                 control={form.control}
                                 name="isTwoFactor"
                                 render={({ field }) => (
-                                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                                    <FormItem className="mt-2 flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                                         <div className="space-y-0.5">
                                             <FormLabel>Habilitar 2FA</FormLabel>
                                         </div>

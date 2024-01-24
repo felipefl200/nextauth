@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { toast } from 'sonner'
 import { UserRole } from '@prisma/client'
 import { admin } from '@/actions/admin'
+import { useCurrentUser } from '@/hooks/use-current-user'
 
 export default function AdminPage() {
     const onServerClick = () => {
@@ -31,6 +32,9 @@ export default function AdminPage() {
             }
         })
     }
+    const { role } = useCurrentUser()
+    console.log(role)
+
     return (
         <Card>
             <CardHeader>
@@ -45,11 +49,15 @@ export default function AdminPage() {
                 </RoleGate>
                 <div className="flex items-center justify-between rounded-lg border p-3 shadow-md">
                     <p className="text-sm font-medium">Apenas Admin API</p>
-                    <Button onClick={onApiClick}>Testar</Button>
+                    <Button disabled={role === 'USER'} onClick={onApiClick}>
+                        Testar
+                    </Button>
                 </div>
                 <div className="flex items-center justify-between rounded-lg border p-3 shadow-md">
                     <p className="text-sm font-medium">Apenas Admin Server Actions</p>
-                    <Button onClick={onServerClick}>Testar</Button>
+                    <Button disabled={role === 'USER'} onClick={onServerClick}>
+                        Testar
+                    </Button>
                 </div>
             </CardContent>
             <p></p>
