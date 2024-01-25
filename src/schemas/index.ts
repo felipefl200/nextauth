@@ -6,12 +6,22 @@ export const SettingsSchema = z.object({
     isTwoFactor: z.optional(z.boolean()),
     role: z.enum([UserRole.ADMIN, UserRole.USER]),
     email: z.optional(z.string().email()),
-    password: z.optional(z.string().min(6, { message: "A nova senha deve ter no mínimo 6 caracteres" })),
-    passwordConfirmation: z.optional(z.string().min(6))
+    password: z.optional(z.string()),
+    newPassword: z.optional(z.string().min(6, { message: "A nova senha deve ter no mínimo 6 caracteres" }))
 })
-    .refine((data) => data.password === data.passwordConfirmation, {
-        message: 'As senhas não conferem',
-        path: ['passwordConfirmation'],
+    .refine((data) => {
+        if (data.password && !data.newPassword) return false
+        return true
+    }, {
+        message: 'Nova senha é necessária',
+        path: ['newPassword']
+    })
+    .refine((data) => {
+        if (data.newPassword && !data.password) return false
+        return true
+    }, {
+        message: 'A senha atual é necessária',
+        path: ['password']
     })
 
 export const LoginSchema = z.object({

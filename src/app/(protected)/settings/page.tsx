@@ -33,7 +33,7 @@ export default function SettingPage() {
             email: user?.email || undefined,
             role: user?.role || UserRole.USER,
             password: undefined,
-            passwordConfirmation: undefined,
+            newPassword: undefined,
             isTwoFactor: user?.isTwoFactor,
         },
     })
@@ -97,7 +97,11 @@ export default function SettingPage() {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Tipo de usuário</FormLabel>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <Select
+                                            disabled={isPending}
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                        >
                                             <FormControl>
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Selecione o tipo de usuário" />
@@ -117,7 +121,7 @@ export default function SettingPage() {
                                 name="password"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Senha</FormLabel>
+                                        <FormLabel>Senha atual</FormLabel>
                                         <FormControl>
                                             <Input
                                                 {...field}
@@ -126,15 +130,16 @@ export default function SettingPage() {
                                                 placeholder="******"
                                             />
                                         </FormControl>
+                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
                             <FormField
                                 control={form.control}
-                                name="passwordConfirmation"
+                                name="newPassword"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Confirme a senha</FormLabel>
+                                        <FormLabel>Nova senha</FormLabel>
                                         <FormControl>
                                             <Input
                                                 {...field}
@@ -143,6 +148,7 @@ export default function SettingPage() {
                                                 placeholder="******"
                                             />
                                         </FormControl>
+                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
